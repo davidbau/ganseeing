@@ -35,3 +35,19 @@ python -m seeing.optimize_z_lbfgs \
 done
 
 done
+
+# And do more examples on training images
+for IMAGENUM in $(seq 201 999)
+do
+
+for SOURCE in train
+do
+
+python -m seeing.optimize_z_lbfgs \
+    --image_number ${IMAGENUM} \
+    --image_source ${SOURCE} \
+    --model ${MODEL}
+
+done
+
+done

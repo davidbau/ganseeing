@@ -27,7 +27,6 @@ do
 for SOURCE in train val gan
 do
 
-# python -m seeing.optimize_z_lbfgs \
 python -m seeing.optimize_residuals \
     --image_number ${IMAGENUM} \
     --image_source ${SOURCE} \
