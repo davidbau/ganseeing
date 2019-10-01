@@ -29,13 +29,16 @@ parser.add_argument('--halfsize', type=int,
         default=0)
 parser.add_argument('--lambda_f', type=float, help='Feature regularizer',
         default=0.25)
+parser.add_argument('--num_steps', type=int,
+        help='run for n steps',
+        default=3000)
 parser.add_argument('--snapshot_every', type=int,
         help='only generate snapshots every n iterations',
         default=1000)
 args = parser.parse_args()
 
 
-num_steps = 3000
+num_steps = args.num_steps
 global_seed = 1
 image_number = args.image_number
 expgroup = 'optimize_lbfgs'
@@ -92,7 +95,7 @@ def main():
     target_x = loaded_x.clone().cuda()
     target_f = F(loaded_x.cuda())
     parameters = [current_z]
-    show_every = 1000
+    show_every = args.snapshot_every
 
     nethook.set_requires_grad(False, G, E)
     nethook.set_requires_grad(True, *parameters)
@@ -132,11 +135,11 @@ def main():
                 checkpoint_dict['init_z'] = init_z
                 checkpoint_dict['target_x'] = target_x
                 checkpoint_dict['current_z'] = target_x
-            save_checkpoint(
-                phase='a',
-                step=step_num,
-                optimizer=optimizer.state_dict(),
-                **checkpoint_dict)
+                save_checkpoint(
+                    phase='a',
+                    step=step_num,
+                    optimizer=optimizer.state_dict(),
+                    **checkpoint_dict)
 
 def delete_log():
     try:
