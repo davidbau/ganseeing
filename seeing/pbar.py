@@ -4,7 +4,7 @@ Utilities for showing progress bars, controlling default verbosity, etc.
 
 # If the tqdm package is not available, then do not show progress bars;
 # just connect print_progress to print.
-import sys, types
+import sys, types, builtins
 try:
     from tqdm import tqdm, tqdm_notebook
 except:
@@ -12,7 +12,7 @@ except:
 
 default_verbosity = True
 next_description = None
-python_print = print
+python_print = builtins.print
 
 def post(**kwargs):
     '''
