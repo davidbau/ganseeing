@@ -71,6 +71,7 @@ def load_dataset(domain, split='train', full=False, download=True):
             transform=g_transform)
 
 g_transform = torchvision.transforms.Compose([
+    torchvision.transforms.Resize(256),
     torchvision.transforms.CenterCrop(256),
     torchvision.transforms.ToTensor(),
     torchvision.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
