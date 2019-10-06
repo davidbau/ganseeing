@@ -12,7 +12,8 @@ def load_proggan(domain):
         diningroom='proggan_diningroom-3aa0ab80.pth',
         kitchen='proggan_kitchen-67f1e16c.pth',
         livingroom='proggan_livingroom-5ef336dd.pth',
-        restaurant='proggan_restaurant-b8578299.pth')[domain]
+        restaurant='proggan_restaurant-b8578299.pth',
+        celebhq='proggan_celebhq-620d161c.pth')[domain]
     # Posted here.
     url = 'http://gandissect.csail.mit.edu/models/' + weights_filename
     try:
