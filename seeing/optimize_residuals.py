@@ -3,7 +3,7 @@ from collections import OrderedDict
 from numbers import Number
 from torch.nn.functional import mse_loss, l1_loss
 from seeing import pbar
-from seeing import zdataset, seededsampler
+from seeing import zdataset
 from seeing import proggan, customnet, parallelfolder
 from seeing import encoder_net, encoder_loss, setting
 from torchvision import transforms, models
