@@ -21,8 +21,7 @@ and fake images.
 
 ## Mode-dropping and the problem of visualizing omissions
 
-Visualizing the omissions of an image generator is an interesting
-problem.  We address it in two ways.
+We visualizing the omissions of an image generator in two ways.
 
    1. We visualize omissions within the *distribution* of images.
    2. We visualize omissions within *individual* images.
