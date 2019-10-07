@@ -21,7 +21,7 @@ done
 
 
 # And do 200 train, val and GAN-generated images.
-for IMAGENUM in $(seq 0 200)
+for IMAGENUM in $(seq 0 199)
 do
 
 for SOURCE in train val gan
@@ -35,3 +35,18 @@ python -m seeing.optimize_residuals \
 done
 
 done
+
+
+# And do 1000 training images.
+for IMAGENUM in $(seq 200 999)
+do
+
+SOURCE=train
+
+python -m seeing.optimize_residuals \
+    --image_number ${IMAGENUM} \
+    --image_source ${SOURCE} \
+    --model ${MODEL}
+
+done
+
