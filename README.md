@@ -21,10 +21,10 @@ and fake images.
 
 ## Mode-dropping and the problem of visualizing omissions
 
-We visualizing the omissions of an image generator in two ways.
+We visualize the omissions of an image generator in two ways.
 
-   1. We visualize omissions within the *distribution* of images.
-   2. We visualize omissions within *individual* images.
+   1. We identify omissions within the *distribution* of images.
+   2. We identify omissions within *individual* images.
 
 ## Seeing omissions in the distribution
 
@@ -39,9 +39,9 @@ is analyzed below.
 ![](img/progan-church-histogram.png)
 
 The model does not generate enough pixels of people, cars, palm trees,
-or signboards compared to the training distribution.  
-The script `run_fsd.sh` and the notebook `histograms.ipynb`
-show how we collect and visualize these segmentation statistics.
+or signboards compared to the training distribution.  The script
+ `run_fsd.sh` and the notebook `histograms.ipynb` show how we 
+collect and visualize these segmentation statistics.
 
 ## Seeing omissions in individual images
 
