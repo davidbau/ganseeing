@@ -21,7 +21,7 @@ def post(**kwargs):
     status bar.  If not within a visible progress bar, does nothing.
     '''
     innermost = innermost_tqdm()
-    if innermost:
+    if innermost is not None:
         innermost.set_postfix(**kwargs)
 
 def desc(desc):
@@ -30,7 +30,7 @@ def desc(desc):
     left-hand-side description of the loop toe the given description.
     '''
     innermost = innermost_tqdm()
-    if innermost:
+    if innermost is not None:
         innermost.set_description(str(desc))
 
 def descnext(desc):
@@ -61,7 +61,7 @@ def tqdm_terminal(it, *args, **kwargs):
     Some settings for tqdm that make it run better in resizable terminals.
     '''
     return tqdm(it, *args, dynamic_ncols=True, ascii=True,
-            leave=(not innermost_tqdm()), **kwargs)
+            leave=(innermost_tqdm() is not None), **kwargs)
 
 def in_notebook():
     '''
@@ -87,6 +87,32 @@ def innermost_tqdm():
         return max(tqdm._instances, key=lambda x: x.pos)
     else:
         return None
+
+def reporthook(*args, **kwargs):
+    '''
+    For use with urllib.request.urlretrieve.
+
+    with pbar.reporthook() as hook:
+        urllib.request.urlretrieve(url, filename, reporthook=hook)
+    '''
+    kwargs2 = dict(unit_scale=True, miniters=1)
+    kwargs2.update(kwargs)
+    bar = __call__(None, *args, **kwargs2)
+    class ReportHook(object):
+        def __init__(self, t):
+            self.t = t
+        def __call__(self, b=1, bsize=1, tsize=None):
+            if hasattr(self.t, 'total'):
+                if tsize is not None:
+                    self.t.total = tsize
+            if hasattr(self.t, 'update'):
+                self.t.update(b * bsize - self.t.n)
+        def __enter__(self):
+            return self
+        def __exit__(self, *exc):
+            if hasattr(self.t, '__exit__'):
+                self.t.__exit__(*exc)
+    return ReportHook(bar)
 
 def __call__(x, *args, **kwargs):
     '''
