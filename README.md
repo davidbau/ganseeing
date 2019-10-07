@@ -57,10 +57,10 @@ These visualizations are created by `run_invert.sh`.
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
-![](img/church_569_reconst.png) | ![](img/church_569_target.png)
 ![](img/church_393_reconst.png) | ![](img/church_393_target.png)
 ![](img/church_523_reconst.png) | ![](img/church_523_target.png)
 ![](img/church_646_reconst.png) | ![](img/church_646_target.png)
+![](img/church_569_reconst.png) | ![](img/church_569_target.png)
 
 <!---
 ![](img/church_120_reconst.png) | ![](img/church_120_target.png)
@@ -76,13 +76,13 @@ GAN reconstruction              | Real photo
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
-![](img/church_522_reconst.png) | ![](img/church_522_target.png)
 ![](img/church_54_reconst.png)  | ![](img/church_54_target.png)
 ![](img/church_645_reconst.png) | ![](img/church_645_target.png)
+![](img/church_666_reconst.png) | ![](img/church_666_target.png)
 
 <!---
+![](img/church_522_reconst.png) | ![](img/church_522_target.png)
 ![](img/church_296_reconst.png) | ![](img/church_296_target.png)
-![](img/church_666_reconst.png) | ![](img/church_666_target.png)
 ![](img/church_90_reconst.png)  | ![](img/church_90_target.png)
 ![](img/church_27_reconst.png)  | ![](img/church_27_target.png)
 --->
