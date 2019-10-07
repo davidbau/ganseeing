@@ -51,6 +51,8 @@ generated using the model learned by the GAN.  This reconstruction
 process is perfect for generated images.  Real photos that cannot
 be reconstructed reveal specific things the GAN cannot generate.
 
+These visualizations are created by `run_invert.sh`.
+
 ### People
 
 GAN reconstruction              | Real photo 
@@ -59,6 +61,8 @@ GAN reconstruction              | Real photo
 ![](img/church_393_reconst.png) | ![](img/church_393_target.png)
 ![](img/church_523_reconst.png) | ![](img/church_523_target.png)
 ![](img/church_646_reconst.png) | ![](img/church_646_target.png)
+
+<!---
 ![](img/church_120_reconst.png) | ![](img/church_120_target.png)
 ![](img/church_200_reconst.png) | ![](img/church_200_target.png)
 ![](img/church_401_reconst.png) | ![](img/church_401_target.png)
@@ -66,18 +70,22 @@ GAN reconstruction              | Real photo
 ![](img/church_457_reconst.png) | ![](img/church_457_target.png)
 ![](img/church_463_reconst.png) | ![](img/church_463_target.png)
 ![](img/church_594_reconst.png) | ![](img/church_594_target.png)
+--->
 
 ### Vehicles
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
-![](img/church_296_reconst.png) | ![](img/church_296_target.png)
 ![](img/church_522_reconst.png) | ![](img/church_522_target.png)
 ![](img/church_54_reconst.png)  | ![](img/church_54_target.png)
 ![](img/church_645_reconst.png) | ![](img/church_645_target.png)
+
+<!---
+![](img/church_296_reconst.png) | ![](img/church_296_target.png)
 ![](img/church_666_reconst.png) | ![](img/church_666_target.png)
 ![](img/church_90_reconst.png)  | ![](img/church_90_target.png)
 ![](img/church_27_reconst.png)  | ![](img/church_27_target.png)
+--->
 
 ### Signs
 
@@ -91,10 +99,12 @@ GAN reconstruction              | Real photo
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
-![](img/church_303_reconst.png) | ![](img/church_303_target.png)
 ![](img/church_41_reconst.png)  | ![](img/church_41_target.png)
 ![](img/church_480_reconst.png) | ![](img/church_480_target.png)
 ![](img/church_271_reconst.png) | ![](img/church_271_target.png)
+<!---
+![](img/church_303_reconst.png) | ![](img/church_303_target.png)
+--->
 
 ### Palm trees
 
