@@ -37,9 +37,9 @@ is analyzed below.
 
 ![](img/progan-church-histogram.png)
 
-The graph reveals that The model does not generate enough pixels of
-people, cars, fences, palm trees, or signboards compared to the training
-distribution.  The script `run_fsd.sh` and the notebook `histograms.ipynb`
+The model does not generate enough pixels of people, cars, fences,
+palm trees, or signboards compared to the training distribution.
+The script `run_fsd.sh` and the notebook `seeing_distributions.ipynb`
 show how we collect and visualize these segmentation statistics.
 
 ## Seeing omissions in individual images
