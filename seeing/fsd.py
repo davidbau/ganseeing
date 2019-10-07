@@ -8,6 +8,7 @@ from seeing import segmenter
 from seeing import frechet_distance
 from seeing import parallelfolder
 
+
 NUM_OBJECTS=336
 
 def main():
@@ -41,13 +42,21 @@ def main():
                 dpi=args.dpi
                 ).savefig(args.histout)
 
-def cached_tally_directory(directory, size=10000, cachedir=None, seed=1):
-    filename = '%s_segtally_%d.npy' % (directory, size)
+def cached_tally_directory(directory, size=10000, cachedir=None, seed=1,
+        download_from=None):
+    basename = ('%s_segtally_%d.npy' % (directory, size)).replace('/', '_')
     if seed != 1:
-        filename = '%d_%s' % (seed, filename)
+        basename = '%d_%s' % (seed, basename)
     if cachedir is not None:
-        filename = os.path.join(cachedir,
-                filename.replace('/', '_'))
+        filename = os.path.join(cachedir, basename.replace('/', '_'))
+    else:
+        filename = basename
+    if not os.path.isfile(filename) and download_from:
+        from urllib.request import urlretrieve
+        from urllib.parse import urljoin
+        with pbar.reporthook() as hook:
+            urlretrieve(urljoin(download_from, basename), filename,
+                    reporthook=hook)
     if os.path.isfile(filename):
         return numpy.load(filename)
     os.makedirs(cachedir, exist_ok=True)
