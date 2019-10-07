@@ -28,33 +28,35 @@ We visualize the omissions of an image generator in two ways.
 
 ## Seeing omissions in the distribution
 
-To understand what the GAN's output distribution is missing, we
-gather segmentation statistics over the outputs, and compare the
-number of generated pixels in each output object class with the
-expected number in the training distribution.
+To understand omissions in a GAN's output distribution is, we compare
+segmentation statistics between the GAN output and the training
+distribution.
 
 A Progressive GAN trained to generate LSUN outdoor church images
 is analyzed below.
 
 ![](img/progan-church-histogram.png)
 
-The model does not generate enough pixels of people, cars, palm trees,
-or signboards compared to the training distribution.  The script
- `run_fsd.sh` and the notebook `histograms.ipynb` show how we 
-collect and visualize these segmentation statistics.
+The graph reveals that The model does not generate enough pixels of
+people, cars, fences, palm trees, or signboards compared to the training
+distribution.  The script `run_fsd.sh` and the notebook `histograms.ipynb`
+show how we collect and visualize these segmentation statistics.
 
 ## Seeing omissions in individual images
 
-To understand what the GAN misses in individual images, we create
-pairs of examples, where a real photo is paired with an image
-generated using the model learned by the GAN.  This reconstruction
-process can perfectly recover images that are generated.  Therefore,
-Real photos that cannot be reconstructed reveal specific examples
-of what the GAN cannot generate.
+To understand omission in specific GAN-generated output, we must pair
+the output with a real photo that shows what the GAN *should* have
+drawn but did not.  So we compare real training photos to a
+reconstructed image derived from the model of the GAN.
 
 These visualizations are created by `run_invert.sh`.
 
 ### People
+
+As seen in the distribution statistics, thie GAN does not draw enough
+people.  By visualizing reconstructions, we can see how: the GAN seems
+to avoid drawing peopel badly, instead synthesizing plausible scenes
+without people.
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
@@ -75,17 +77,19 @@ GAN reconstruction              | Real photo
 
 ### Vehicles
 
+A similar effect is seen for vehicles.
+
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
 ![](img/church_54_reconst.png)  | ![](img/church_54_target.png)
-![](img/church_645_reconst.png) | ![](img/church_645_target.png)
 ![](img/church_666_reconst.png) | ![](img/church_666_target.png)
+![](img/church_27_reconst.png)  | ![](img/church_27_target.png)
 
 <!---
 ![](img/church_522_reconst.png) | ![](img/church_522_target.png)
 ![](img/church_296_reconst.png) | ![](img/church_296_target.png)
 ![](img/church_90_reconst.png)  | ![](img/church_90_target.png)
-![](img/church_27_reconst.png)  | ![](img/church_27_target.png)
+![](img/church_645_reconst.png) | ![](img/church_645_target.png)
 --->
 
 ### Signs
