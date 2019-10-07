@@ -34,12 +34,13 @@ gather segmentation statistics over the outputs, and compare the
 number of generated pixels in each output object class with the
 expected number in the training distribution.
 
-For example, we can see that a a Progressive GAN church model does
-not generate enough pixels of apeople, cars, palm trees, or
-signboards compared to the training distribution.
+A Progressive GAN trained to generate LSUN outdoor church images
+is analyzed below.
 
 ![](img/progan-church-histogram.png)
 
+The model does not generate enough pixels of people, cars, palm trees,
+or signboards compared to the training distribution.  
 The script `run_fsd.sh` and the notebook `histograms.ipynb`
 show how we collect and visualize these segmentation statistics.
 
@@ -48,8 +49,9 @@ show how we collect and visualize these segmentation statistics.
 To understand what the GAN misses in individual images, we create
 pairs of examples, where a real photo is paired with an image
 generated using the model learned by the GAN.  This reconstruction
-process is perfect for generated images.  Real photos that cannot
-be reconstructed reveal specific things the GAN cannot generate.
+process can perfectly recover images that are generated.  Therefore,
+Real photos that cannot be reconstructed reveal specific examples
+of what the GAN cannot generate.
 
 These visualizations are created by `run_invert.sh`.
 
