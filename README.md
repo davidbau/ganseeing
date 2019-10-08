@@ -55,8 +55,8 @@ These visualizations are created by `run_invert.sh`.
 
 As seen in the distribution statistics, thie GAN does not draw enough
 people.  By visualizing reconstructions, we can see how: the GAN seems
-to avoid drawing peopel badly, instead synthesizing plausible scenes
-without people.
+to avoid drawing large person figures entirely, instead synthesizing
+plausible scenes without people.
 
 GAN reconstruction              | Real photo 
 :------------------------------:|:------------------------------:
