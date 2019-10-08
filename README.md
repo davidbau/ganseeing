@@ -28,7 +28,7 @@ We visualize the omissions of an image generator in two ways.
 
 ## Seeing omissions in the distribution
 
-To understand omissions in a GAN's output distribution is, we compare
+To understand omissions in a GAN's output distribution, we compare
 segmentation statistics between the GAN output and the training
 distribution.
 
