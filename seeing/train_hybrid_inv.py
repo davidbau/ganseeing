@@ -1,12 +1,12 @@
 import torch, multiprocessing, itertools, os, shutil, PIL, argparse, numpy
 from torch.nn.functional import mse_loss
 from collections import defaultdict, OrderedDict
-from seeing import encoder_net, setting
-from seeing.encoder_loss import cor_square_error
-from seeing import zdataset, pbar, nethook
-from seeing import proggan, customnet, parallelfolder
+from . import encoder_net, setting
+from .encoder_loss import cor_square_error
+from . import zdataset, pbar, nethook
+from . import proggan, customnet, parallelfolder
 from torchvision import transforms, models
-from seeing.pidfile import exit_if_job_done, mark_job_done
+from .pidfile import exit_if_job_done, mark_job_done
 
 torch.backends.cudnn.benchmark = True
 
@@ -182,7 +182,7 @@ def visualize_results(epoch, true_z, generator, encoder):
                 ('r_%s', recovered_r)]], []))
         numpy.savez(os.path.join(dirname, 'epoch_%d_%d.npz' % (epoch, i)),
                 **rawdat)
-    shutil.copy('seeing/lightbox.html',
+    shutil.copy(os.path.join(os.dirname(__file__), 'lightbox.html'),
             os.path.join(dirname, '+lightbox.html'))
 
 def save_tensor_image(img, filename):

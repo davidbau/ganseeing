@@ -1,19 +1,19 @@
 import torch, argparse, sys, os, numpy
-from seeing.sampler import FixedRandomSubsetSampler, FixedSubsetSampler
+from .sampler import FixedRandomSubsetSampler, FixedSubsetSampler
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from seeing import pbar
-from seeing import zdataset
-from seeing import segmenter
-from seeing import frechet_distance
-from seeing import parallelfolder
+from . import pbar
+from . import zdataset
+from . import segmenter
+from . import frechet_distance
+from . import parallelfolder
 
 
 NUM_OBJECTS=336
 
 def main():
     parser = argparse.ArgumentParser(description='Net dissect utility',
-            prog='python -m seeing.fsd')
+            prog='python -m %s.fsd' % __package__)
     parser.add_argument('true_dir')
     parser.add_argument('gen_dir')
     parser.add_argument('--size', type=int, default=10000)

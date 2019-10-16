@@ -5,10 +5,10 @@ A simple tool to generate a sample of output of a GAN.
 import torch, numpy, os, argparse, numbers, sys, shutil
 from PIL import Image
 from torch.utils.data import TensorDataset
-from seeing.zdataset import standard_z_sample
-from seeing import pbar
-from seeing.autoeval import autoimport_eval
-from seeing.workerpool import WorkerBase, WorkerPool
+from .zdataset import standard_z_sample
+from . import pbar
+from .autoeval import autoimport_eval
+from .workerpool import WorkerBase, WorkerPool
 
 def main():
     parser = argparse.ArgumentParser(description='GAN sample making utility')
