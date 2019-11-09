@@ -102,11 +102,11 @@ def coordinate_sample(shape, sample_size, seeds, grid=13, seed=1, flat=False):
     return sampind
 
 def main():
-    from seeing import parallelfolder
+    from . import parallelfolder
     import argparse, os, shutil
 
     parser = argparse.ArgumentParser(description='Net dissect utility',
-            prog='python -m seeing.sampler')
+            prog='python -m %s.sampler' % __package__)
     parser.add_argument('indir')
     parser.add_argument('outdir')
     parser.add_argument('--size', type=int, default=100)

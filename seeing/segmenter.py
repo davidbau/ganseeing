@@ -3,7 +3,7 @@
 import os, torch, numpy, json, glob
 import skimage.morphology
 from collections import OrderedDict
-from seeing import upsegmodel
+from . import upsegmodel
 from urllib.request import urlretrieve
 
 class BaseSegmenter:

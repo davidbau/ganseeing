@@ -8,7 +8,7 @@
 # - show an array of arrays to horizontally lay them out as inline blocks.
 # - show an array of tuples to create a table.
 
-import PIL, base64, io, IPython, types, sys
+import PIL.Image, base64, io, IPython, types, sys
 import html as html_module
 from IPython.display import display
 
@@ -38,14 +38,14 @@ def rows_tags(obj):
 
 def blocks_tags(obj):
     results = []
-    if isinstance(obj, PIL.Image.Image):
+    if hasattr(obj, '_repr_html_'):
+        results.append(obj._repr_html_())
+    elif isinstance(obj, PIL.Image.Image):
         results.append(pil_to_html(obj))
     elif isinstance(obj, (str, int, float)):
         results.append('<div>')
         results.append(html_module.escape(str(obj)))
         results.append('</div>')
-    elif isinstance(obj, IPython.display.HTML):
-        results.append(obj.data)
     elif isinstance(obj, dict):
         results.extend(blocks_tags([(k, v) for k, v in obj.items()]))
     elif hasattr(obj, '__iter__'):
@@ -110,7 +110,7 @@ def a(x, cols=None):
 
 def reset():
     global g_buffer
-    g_buffer = []
+    g_buffer = None
 
 def flush(*args, **kwargs):
     global g_buffer
@@ -123,6 +123,9 @@ def show(x=None, *args, **kwargs):
     flush(*args, **kwargs)
     if x is not None:
         display(blocks(x, *args, **kwargs))
+
+def html(obj, space=''):
+    return blocks(obj, space)._repr_html_()
 
 class CallableModule(types.ModuleType):
     def __init__(self):

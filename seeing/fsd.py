@@ -1,18 +1,19 @@
 import torch, argparse, sys, os, numpy
-from seeing.sampler import FixedRandomSubsetSampler, FixedSubsetSampler
+from .sampler import FixedRandomSubsetSampler, FixedSubsetSampler
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from seeing import pbar
-from seeing import zdataset
-from seeing import segmenter
-from seeing import frechet_distance
-from seeing import parallelfolder
+from . import pbar
+from . import zdataset
+from . import segmenter
+from . import frechet_distance
+from . import parallelfolder
+
 
 NUM_OBJECTS=336
 
 def main():
     parser = argparse.ArgumentParser(description='Net dissect utility',
-            prog='python -m seeing.fsd')
+            prog='python -m %s.fsd' % __package__)
     parser.add_argument('true_dir')
     parser.add_argument('gen_dir')
     parser.add_argument('--size', type=int, default=10000)
@@ -41,13 +42,21 @@ def main():
                 dpi=args.dpi
                 ).savefig(args.histout)
 
-def cached_tally_directory(directory, size=10000, cachedir=None, seed=1):
-    filename = '%s_segtally_%d.npy' % (directory, size)
+def cached_tally_directory(directory, size=10000, cachedir=None, seed=1,
+        download_from=None):
+    basename = ('%s_segtally_%d.npy' % (directory, size)).replace('/', '_')
     if seed != 1:
-        filename = '%d_%s' % (seed, filename)
+        basename = '%d_%s' % (seed, basename)
     if cachedir is not None:
-        filename = os.path.join(cachedir,
-                filename.replace('/', '_'))
+        filename = os.path.join(cachedir, basename.replace('/', '_'))
+    else:
+        filename = basename
+    if not os.path.isfile(filename) and download_from:
+        from urllib.request import urlretrieve
+        from urllib.parse import urljoin
+        with pbar.reporthook() as hook:
+            urlretrieve(urljoin(download_from, basename), filename,
+                    reporthook=hook)
     if os.path.isfile(filename):
         return numpy.load(filename)
     os.makedirs(cachedir, exist_ok=True)

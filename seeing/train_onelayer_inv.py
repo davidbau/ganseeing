@@ -1,12 +1,12 @@
 import torch, multiprocessing, itertools, os, shutil, PIL, argparse, numpy
 from torch.nn.functional import mse_loss, cosine_similarity
 from collections import defaultdict
-from seeing import encoder_net, setting
-from seeing import nethook, zdataset, pbar
-from seeing import proggan, customnet, parallelfolder
-from seeing.encoder_loss import cor_square_error
+from . import encoder_net, setting
+from . import nethook, zdataset, pbar
+from . import proggan, customnet, parallelfolder
+from .encoder_loss import cor_square_error
 from torchvision import transforms, models
-from seeing.pidfile import exit_if_job_done, mark_job_done
+from .pidfile import exit_if_job_done, mark_job_done
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--lr', type=float, help='Learning rate', default=1e-4)
@@ -153,7 +153,7 @@ def visualize_results(epoch, z_batch, encoder, s_maker, r_maker, r_decoder):
             true_r=true_r[i].cpu().numpy(),
             estimated_s=estimated_s[i].cpu().numpy(),
             estimated_r=estimated_r[i].cpu().numpy())
-    shutil.copy('seeing/lightbox.html',
+    shutil.copy(os.path.join(os.path.dirname(__file__), 'lightbox.html'),
             os.path.join(dirname, '+lightbox.html'))
 
 def save_tensor_image(img, filename):

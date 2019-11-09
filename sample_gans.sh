@@ -8,7 +8,7 @@ do
 
 CONFIGS=(
     wgangp
-	minibatch-stddev
+    minibatch-stddev
 )
 
 for EXPNAME in ${CONFIGS[@]}
@@ -27,7 +27,7 @@ done
 
 CONFIGS=(
     bedroom
-	church
+    church
 )
 
 for EXPNAME in ${CONFIGS[@]}

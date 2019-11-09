@@ -1,5 +1,5 @@
 import torch, torchvision, os
-from . import parallelfolder, zdataset
+from . import parallelfolder, zdataset, encoder_net
 
 def load_proggan(domain):
     # Automatically download and cache progressive GAN model
@@ -48,13 +48,38 @@ def load_proggan_ablation(modelname):
         }[modelname]
     # Posted here.
     url = 'http://gandissect.csail.mit.edu/models/ablations/' + weights_filename
-    # try:
-    sd = torch.hub.load_state_dict_from_url(url) # pytorch 1.1
-    #except:
-    #    sd = torch.hub.model_zoo.load_url(url) # pytorch 1.0
+    try:
+        sd = torch.hub.load_state_dict_from_url(url) # pytorch 1.1
+    except:
+        sd = torch.hub.model_zoo.load_url(url) # pytorch 1.0
     model = model_classname()
     model.load_state_dict(sd)
     return model
+
+def load_proggan_inversion(modelname):
+    # A couple inversion models pretrained using the code in this repo.
+
+    from . import proggan_ablation
+    model_classname, weights_filename = {
+		"church": (encoder_net.HybridLayerNormEncoder,
+            "church_invert_hybrid_cse-43e52428.pth"),
+		"bedroom": (encoder_net.HybridLayerNormEncoder,
+            "bedroom_invert_hybrid_cse-b943528e.pth"),
+        }[modelname]
+    # Posted here.
+    url = 'http://gandissect.csail.mit.edu/models/encoders/' + weights_filename
+    try:
+        sd = torch.hub.load_state_dict_from_url(url) # pytorch 1.1
+    except:
+        sd = torch.hub.model_zoo.load_url(url) # pytorch 1.0
+    if 'state_dict' in sd:
+        sd = sd['state_dict']
+    sd = {k.replace('model.', ''): v for k, v in sd.items()}
+    model = model_classname()
+    model.load_state_dict(sd)
+    model.eval()
+    return model
+
 
 g_datasets = {}
 

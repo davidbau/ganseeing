@@ -2,17 +2,17 @@ import torch, multiprocessing, itertools, os, shutil, PIL, argparse, numpy
 from collections import OrderedDict
 from numbers import Number
 from torch.nn.functional import mse_loss, l1_loss
-from seeing import pbar
-from seeing import zdataset
-from seeing import proggan, customnet, parallelfolder
-from seeing import encoder_net, encoder_loss, setting
+from . import pbar
+from . import zdataset
+from . import proggan, customnet, parallelfolder
+from . import encoder_net, encoder_loss, setting
 from torchvision import transforms, models
 from torchvision.models.vgg import model_urls
-from seeing.pidfile import exit_if_job_done, mark_job_done
-from seeing import nethook
-from seeing.pidfile import exit_if_job_done, mark_job_done
-from seeing.encoder_loss import cor_square_error
-from seeing.nethook import InstrumentedModel
+from .pidfile import exit_if_job_done, mark_job_done
+from . import nethook
+from .pidfile import exit_if_job_done, mark_job_done
+from .encoder_loss import cor_square_error
+from .nethook import InstrumentedModel
 
 torch.backends.cudnn.benchmark = True
 
@@ -219,7 +219,6 @@ def save_checkpoint(**kwargs):
     numpy.savez(os.path.join(dirname, filename), **numeric_data)
 
 def visualize_results(step, img, summarize=False):
-    # TODO: add editing etc.
     if isinstance(step, tuple):
         filename = '%s.png' % ('_'.join(str(i) for i in step))
     else:
@@ -229,12 +228,14 @@ def visualize_results(step, img, summarize=False):
     save_tensor_image(img, os.path.join(dirname, filename))
     lbname = os.path.join(dirname, '+lightbox.html')
     if not os.path.exists(lbname):
-        shutil.copy('seeing/lightbox.html', lbname)
+        shutil.copy(os.path.join(os.path.dirname(__file__),
+            'lightbox.html'), lbname)
     if summarize:
         save_tensor_image(img, os.path.join(sumdir, filename))
         lbname = os.path.join(sumdir, '+lightbox.html')
         if not os.path.exists(lbname):
-            shutil.copy('seeing/lightbox.html', lbname)
+            shutil.copy(os.path.join(os.path.dirname(__file__),
+                'lightbox.html'), lbname)
 
 def save_tensor_image(img, filename):
     if len(img.shape) == 4:
