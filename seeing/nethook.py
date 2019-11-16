@@ -302,7 +302,8 @@ def make_matching_tensor(valuedict, name, data):
     return v
 
 def subsequence(sequential, first_layer=None, last_layer=None,
-            share_weights=False):
+        upto_layer=None, single_layer=None,
+        share_weights=False):
     '''
     Creates a subsequence of a pytorch Sequential model, copying over
     modules together with parameters for the subsequence.  Only
@@ -312,12 +313,21 @@ def subsequence(sequential, first_layer=None, last_layer=None,
     and their parameters without copying them.  Otherwise, by default,
     makes a separate brand-new copy.
     '''
+    assert ((single_layer is None) or
+            (first_layer is last_layer is upto_layer is None))
+    assert (last_layer is None) or (upto_layer is None)
+    if single_layer is not None:
+        first_layer = single_layer
+        last_layer = single_layer
     included_children = OrderedDict()
     including_children = (first_layer is None)
     for name, layer in sequential._modules.items():
         if name == first_layer:
             first_layer = None
             including_children = True
+        if name == upto_layer:
+            upto_layer = None
+            including_children = False
         if including_children:
             included_children[name] = layer if share_weights else (
                     copy.deepcopy(layer))
@@ -328,8 +338,10 @@ def subsequence(sequential, first_layer=None, last_layer=None,
         raise ValueError('Layer %s not found' % first_layer)
     if last_layer is not None:
         raise ValueError('Layer %s not found' % last_layer)
-    if not len(included_children):
-        raise ValueError('Empty subsequence')
+    if upto_layer is not None:
+        raise ValueError('Layer %s not found' % upto_layer)
+    # if not len(included_children):
+    #    raise ValueError('Empty subsequence')
     return torch.nn.Sequential(OrderedDict(included_children))
 
 def set_requires_grad(requires_grad, *models):
