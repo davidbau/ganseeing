@@ -92,7 +92,7 @@ def load_dataset(domain, split='train', full=False, download=True):
         torchvision.datasets.utils.download_and_extract_archive(
                 'http://gandissect.csail.mit.edu/datasets/minilsun.zip',
                 'datasets',
-                md5='a67a898673a559db95601314b9b51cd5')
+                md5='4bf19f711555a5771220384db4c97999')
     return parallelfolder.ParallelImageFolders([dirname],
             transform=g_transform)
 
